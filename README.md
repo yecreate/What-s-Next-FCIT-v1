@@ -31,7 +31,7 @@ This application is more than just a schedule viewer. It's a complete dashboard 
 
 ## 🚀 Live Demo
 
-[https://github.com/yecreate/What-s-Next-FCIT-v1](https://github.com/yecreate/What-s-Next-FCIT-v1)
+[https://yecreate.github.io/What-s-Next-FCIT-v1/](https://yecreate.github.io/What-s-Next-FCIT-v1/)
 
 ## 🛠️ Tech Stack
 
