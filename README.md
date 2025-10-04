@@ -48,7 +48,7 @@ There are two ways to use this tool:
 
 **1. Local Usage (Simple)**
 
-Simply download the `Group_1_Schedule_v1.html` file and open it in any modern web browser. All features will work out of the box.
+Simply download the `index.html` file and open it in any modern web browser. All features will work out of the box.
 
 **2. Deployment (Recommended for Sharing)**
 
