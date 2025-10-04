@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 1 Schedule - Fall 2025/2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html.dark {
+            color-scheme: dark;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Styles for details/summary accordion */
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .day-column > summary::before {
+            content: '▶';
+            margin-right: 0.5rem;
+            font-size: 0.8em;
+            transition: transform 0.2s ease-in-out;
+        }
+        details[open].day-column > summary::before {
+            transform: rotate(90deg);
+        }
+
+        /* Styles for printing */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact; /* Chrome, Safari */
+                color-adjust: exact; /* Firefox */
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-block {
+                display: block !important;
+            }
+            .schedule-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 1rem !important;
+            }
+            .event-card {
+                border: 1px solid #ccc;
+                break-inside: avoid;
+            }
+            details, details[open] {
+                border: none;
+                padding: 0;
+            }
+            details > summary {
+                padding-bottom: 1rem;
+            }
+            details .day-content {
+                display: block !important; /* Ensure content is visible */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 p-4 sm:p-6 lg:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="flex items-center justify-between gap-4 mb-8 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md no-print border-b-4 border-[#654b99]">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-[#654b99]">Innovation University</h1>
+                <p class="text-sm sm:text-md text-gray-600 dark:text-gray-300">Faculty of Computers and Information Technology FCIT</p>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <a href="https://lms.iu.edu.eg/my/" target="_blank" rel="noopener noreferrer" title="Go to LMS" class="px-3 py-1.5 text-sm font-semibold text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    LMS
+                </a>
+                <a href="https://sis.iu.edu.eg/UI/StudentView/Home.aspx" target="_blank" rel="noopener noreferrer" title="Go to SIS" class="px-3 py-1.5 text-sm font-semibold text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    SIS
+                </a>
+            </div>
+        </header>
+        
+        <div class="hidden print-block text-center mb-4">
+            <h1 class="text-2xl font-bold">Innovation University</h1>
+            <p>FCIT | Level 2 | Fall 2025/2026 | Group 1</p>
+        </div>
+
+        <div id="live-clock" class="text-center text-lg font-semibold text-gray-700 dark:text-gray-300 mb-8 no-print flex flex-col sm:flex-row sm:justify-center sm:gap-2"></div>
+
+        <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md mb-8 no-print border border-gray-200 dark:border-gray-700">
+             <div class="flex flex-wrap items-center justify-between gap-4">
+                <h2 class="text-xl font-bold">Dashboard</h2>
+                <div class="flex items-center gap-2 flex-wrap justify-center">
+                    <button id="quick-note-btn" title="Add a Quick General Note" class="px-3 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 text-sm font-semibold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sticky-fill" viewBox="0 0 16 16"><path d="M2.5 1A1.5 1.5 0 0 0 1 2.5v11A1.5 1.5 0 0 0 2.5 15h6.086a1.5 1.5 0 0 0 1.06-.44l4.915-4.914A1.5 1.5 0 0 0 15 8.586V2.5A1.5 1.5 0 0 0 13.5 1h-11zM11 9.5a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v4.5a.5.5 0 0 0 1 0V5a.5.5 0 0 1 1 0v4.5z"/></svg>
+                        <span>Quick Note</span>
+                    </button>
+                    <button id="notes-manager-btn" title="Manage All Notes" class="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-semibold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16"><path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z"/></svg>
+                        <span>Manage Notes</span>
+                    </button>
+                    <button id="ical-export-btn" title="Export to Calendar" class="px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-semibold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16"><path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg>
+                        <span>Export Calendar</span>
+                    </button>
+                    <button id="export-pdf-btn" title="Export Notes as PDF" class="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-semibold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+                        <span>Export Notes</span>
+                    </button>
+                    <button id="clear-notes-btn" title="Clear All Notes" class="px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-semibold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/></svg>
+                        <span>Clear All Notes</span>
+                    </button>
+                    <button id="theme-toggle" title="Toggle Dark/Light Mode" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                        <svg id="theme-icon-light" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun-fill" viewBox="0 0 16 16"><path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></svg>
+                        <svg id="theme-icon-dark" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill hidden" viewBox="0 0 16 16"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="mt-6 border-t border-gray-200 dark:border-gray-700 pt-4">
+                <details>
+                    <summary class="font-semibold text-gray-700 dark:text-gray-300 cursor-pointer flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413-1.4-2.397 0-2.81l.34-.1a1.464 1.464 0 0 1 .872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/></svg>
+                        Test Mode
+                    </summary>
+                    <div class="mt-3 p-3 bg-gray-100 dark:bg-gray-700/50 rounded-lg">
+                        <p class="text-sm mb-3 text-gray-600 dark:text-gray-400">Simulate the schedule view at a different date and time.</p>
+                        <div class="flex flex-wrap items-center gap-4">
+                            <input type="date" id="test-date" class="p-2 rounded border border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+                            <input type="time" id="test-time" class="p-2 rounded border border-gray-300 dark:bg-gray-700 dark:border-gray-600">
+                            <button id="reset-time" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-semibold">Reset</button>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+        
+        <div id="academic-calendar" class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md mb-8 no-print border border-gray-200 dark:border-gray-700">
+             <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-4">
+                <h2 class="text-xl font-bold">Academic Calendar</h2>
+                <div class="text-center sm:text-right">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Current Week</p>
+                    <p id="week-number" class="text-2xl font-bold text-[#654b99]">Calculating...</p>
+                </div>
+             </div>
+             <div class="space-y-4">
+                <div class="space-y-3 text-sm">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span id="dynamic-progress-label" class="font-semibold text-gray-700 dark:text-gray-300"></span>
+                            <span id="dynamic-progress-text" class="font-semibold text-gray-700 dark:text-gray-300"></span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div id="dynamic-progress-bar" class="bg-[#654b99] h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="font-semibold text-gray-700 dark:text-gray-300">Semester Progress</span>
+                            <span id="semester-progress-text" class="font-semibold text-gray-700 dark:text-gray-300"></span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                            <div id="semester-progress-bar" class="bg-[#654b99] h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-gray-200 dark:border-gray-700 text-center">
+                    <div>
+                        <p class="font-semibold">Midterm Exam</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Nov 8 - 13</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold">End of Classes</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Jan 1, 2026</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold">Final Exams</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Jan 3 - 22</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold">Mid-Year Break</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Starts Jan 24</p>
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 no-print">
+            <div id="live-status-now"></div>
+            <div id="live-status-next"></div>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 no-print">
+            <div class="flex items-center">
+                <span class="w-4 h-4 rounded-full bg-yellow-100 border border-yellow-300 dark:bg-yellow-900/50 dark:border-yellow-600 mr-2"></span>
+                <span>Lecture</span>
+            </div>
+            <div class="flex items-center">
+                <span class="w-4 h-4 rounded-full bg-orange-100 border border-orange-300 dark:bg-orange-900/50 dark:border-orange-600 mr-2"></span>
+                <span>Tutorial</span>
+            </div>
+            <div class="flex items-center">
+                <span class="w-4 h-4 rounded-full bg-blue-100 border border-blue-300 dark:bg-blue-900/50 dark:border-blue-600 mr-2"></span>
+                <span>Lab</span>
+            </div>
+             <div class="flex items-center">
+                <span class="w-4 h-4 rounded-full bg-gray-200 border border-gray-300 dark:bg-gray-700 dark:border-gray-500 mr-2"></span>
+                <span>Gap</span>
+            </div>
+        </div>
+        
+        <div id="schedule-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 schedule-grid">
+            <details id="day-Saturday" class="day-column">
+                <summary class="text-xl font-bold text-center bg-white dark:bg-gray-800 shadow-sm rounded-lg p-3 cursor-pointer">Saturday</summary>
+                <div class="day-content flex flex-col gap-4 mt-4 relative"></div>
+            </details>
+            <details id="day-Monday" class="day-column">
+                <summary class="text-xl font-bold text-center bg-white dark:bg-gray-800 shadow-sm rounded-lg p-3 cursor-pointer">Monday</summary>
+                <div class="day-content flex flex-col gap-4 mt-4 relative"></div>
+            </details>
+            <details id="day-Tuesday" class="day-column">
+                <summary class="text-xl font-bold text-center bg-white dark:bg-gray-800 shadow-sm rounded-lg p-3 cursor-pointer">Tuesday</summary>
+                <div class="day-content flex flex-col gap-4 mt-4 relative"></div>
+            </details>
+            <details id="day-Wednesday" class="day-column">
+                <summary class="text-xl font-bold text-center bg-white dark:bg-gray-800 shadow-sm rounded-lg p-3 cursor-pointer">Wednesday</summary>
+                <div class="day-content flex flex-col gap-4 mt-4 relative"></div>
+            </details>
+        </div>
+
+        <footer class="text-center mt-12 py-6 bg-white dark:bg-gray-800 rounded-lg shadow-md no-print">
+            <p class="text-gray-600 dark:text-gray-400 font-semibold">Developed by JoeLabs - Youssef Sameh</p>
+            <a href="https://www.instagram.com/yecreate" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-[#654b99] dark:hover:text-[#654b99] transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 8 0zm0 1.442c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.282.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.843-.038 1.096-.047 3.232-.047z"/><path d="M8 4.405a3.595 3.595 0 1 0 0 7.19 3.595 3.595 0 0 0 0-7.19zm0 5.799a2.2 2.2 0 1 1 0-4.4 2.2 2.2 0 0 1 0 4.4z"/><circle cx="12.137" cy="3.863" r=".962"/></svg>
+                @yecreate
+            </a>
+        </footer>
+    </div>
+
+    <div id="notes-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden no-print z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md">
+            <h2 id="notes-modal-title" class="text-xl font-bold mb-4">Add/Edit Note</h2>
+            <textarea id="notes-textarea" class="w-full h-40 p-2 border rounded mb-4 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" placeholder="Type your notes here..."></textarea>
+            <div class="flex justify-end gap-4">
+                <button id="notes-modal-close" class="px-4 py-2 bg-gray-300 dark:bg-gray-600 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-500 font-semibold">Cancel</button>
+                <button id="notes-modal-save" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="notes-manager-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden no-print z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-3xl h-[80vh] flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Notes Manager</h2>
+                <button id="notes-manager-close" class="text-gray-500 dark:text-gray-400 hover:text-red-500 text-3xl">&times;</button>
+            </div>
+            
+            <div class="flex-grow overflow-y-auto space-y-4 min-h-0">
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Course-Specific Notes</h3>
+                    <div id="course-notes-list" class="space-y-2"></div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2">General Notes</h3>
+                    <div id="general-notes-list" class="space-y-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const scheduleData = {
+            "Saturday": [
+                { start: "09:00", end: "09:50", title: "Computer Architecture", code: "CF225", type: "Tutorial", color: "orange", instructor: "ENG. Fady Salama", location: "HALL A0.1", groups: "G1, G2" },
+                { start: "09:50", end: "11:40", title: "Probability and Statistics", code: "BS214", type: "Tutorial", color: "orange", instructor: "ENG. Mirna Mohamed", location: "Class Room C3.2", groups: "G1" },
+                { start: "11:40", end: "12:00", title: "Gap (20 min)", type: "Gap", color: "gray" },
+                { start: "12:00", end: "14:00", title: "Project Management", code: "BS213", type: "Lecture", color: "yellow", instructor: "DR. Ahmad Mohamad Nagm", location: "HALL A0.1", groups: "Group A" }
+            ],
+            "Monday": [
+                { start: "09:00", end: "10:40", title: "Data Structures", code: "CF216", type: "Lecture", color: "yellow", instructor: "DR. Shaimaa", location: "HALL A2.1", groups: "Group A" },
+                { start: "10:40", end: "10:50", title: "Gap (10 min)", type: "Gap", color: "gray" },
+                { start: "10:50", end: "12:30", title: "Data Structures", code: "CF216", type: "LAB", color: "blue", instructor: "ENG. Mai Sherif", location: "Computer LAB B0.2", groups: "G1" },
+                { start: "12:30", end: "12:40", title: "Gap (10 min)", type: "Gap", color: "gray" },
+                { start: "12:40", end: "14:20", title: "Project Management", code: "BS213", type: "Tutorial", color: "orange", instructor: "ENG. Shorouk Adel", location: "Class Room C1.1", groups: "G1" },
+                { start: "14:20", end: "15:10", title: "Computer Architecture", code: "CF225", type: "LAB", color: "blue", instructor: "ENG. Fady Salama", location: "Computer LAB B0.1", groups: "G1" }
+            ],
+            "Tuesday": [
+                { start: "09:00", end: "10:50", title: "Computer Architecture", code: "CF225", type: "Lecture", color: "yellow", instructor: "DR. Ahmad Mohamad Nagm", location: "HALL A2.1", groups: "Group A" },
+                { start: "10:50", end: "12:30", title: "Probability and Statistics", code: "BS214", type: "Lecture", color: "yellow", instructor: "DR. Shaimaa", location: "HALL A1.1", groups: "G1, G2, G3, G4" },
+                { start: "12:30", end: "13:30", title: "Gap (60 min)", type: "Gap", color: "gray" },
+                { start: "13:30", end: "15:10", title: "Mathematics (3)", code: "BS212", type: "Tutorial", color: "orange", instructor: "ENG. Marwa Sameh", location: "Class Room C3.2", groups: "G1" }
+            ],
+            "Wednesday": [
+                { start: "09:00", end: "10:40", title: "Communication Skills", code: "UR211", type: "Lecture", color: "yellow", instructor: "Dr. Lina", location: "HALL A2.1", groups: "Group A" },
+                { start: "10:40", end: "12:40", title: "Gap (120 min)", type: "Gap", color: "gray" },
+                { start: "12:40", end: "14:20", title: "Mathematics (3)", code: "BS212", type: "Lecture", color: "yellow", instructor: "DR. Gamal", location: "HALL A2.1", groups: "G1, G2, G3, G4" }
+            ]
+        };
+        const academicCalendar = {
+            semesterStart: new Date('2025-09-20T00:00:00'),
+            midtermStart: new Date('2025-11-08T00:00:00'),
+            midtermEnd: new Date('2025-11-13T23:59:59'),
+            classEnd: new Date('2026-01-01T23:59:59'),
+            finalStart: new Date('2026-01-03T00:00:00'),
+            finalEnd: new Date('2026-01-22T23:59:59'),
+            breakStart: new Date('2026-01-24T00:00:00'),
+        };
+
+        const scheduledDays = ["Saturday", "Monday", "Tuesday", "Wednesday"];
+        const dayMap = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        
+        let mockDate = null;
+        let currentNoteKey = null;
+
+        const emptyNoteIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>`;
+        const filledNoteIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-check" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>`;
+        const deleteIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>`;
+
+        // --- Core Functions ---
+        function getCurrentTime() {
+            return mockDate ? new Date(mockDate) : new Date();
+        }
+
+        function timeToMinutes(timeStr) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
+
+        function formatTime(ms) {
+            if (ms < 0) ms = 0;
+            const totalSeconds = Math.floor(ms / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function updateClock() {
+            const now = getCurrentTime();
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            
+            const dateString = `<span>${now.toLocaleDateString('en-US', dateOptions)}</span>`;
+            const timeString = `<span>${now.toLocaleTimeString('en-US', timeOptions)}</span>`;
+            
+            document.getElementById('live-clock').innerHTML = `${dateString}${timeString}`;
+        }
+
+        // --- UI Rendering ---
+        function createEventCard(day, event) {
+            const isGap = event.type === 'Gap';
+            const noteKey = `notes-${day}-${event.start}-${event.title.replace(/\s/g, '_')}`;
+            const hasNote = localStorage.getItem(noteKey);
+            
+            const colorClasses = {
+                yellow: { bg: 'bg-yellow-100 dark:bg-yellow-900/50', border: 'border-yellow-500 dark:border-yellow-600', text: 'text-yellow-800 dark:text-yellow-300' },
+                orange: { bg: 'bg-orange-100 dark:bg-orange-900/50', border: 'border-orange-500 dark:border-orange-600', text: 'text-orange-800 dark:text-orange-300' },
+                blue: { bg: 'bg-blue-100 dark:bg-blue-900/50', border: 'border-blue-500 dark:border-blue-600', text: 'text-blue-800 dark:text-blue-300' },
+                gray: { bg: 'bg-gray-200 dark:bg-gray-700', border: 'border-gray-400 dark:border-gray-500', text: 'text-gray-800 dark:text-gray-200' },
+            };
+            const colors = colorClasses[event.color] || colorClasses.gray;
+
+            const noteButton = `<button data-note-key="${noteKey}" onclick="openNotesModal('${noteKey}', '${event.title}')" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400" title="Add/View Notes">${hasNote ? filledNoteIcon : emptyNoteIcon}</button>`;
+            
+            return `<div class="event-card ${colors.bg} border-l-4 ${colors.border} p-4 rounded-lg shadow-md">
+                    <div class="flex justify-between items-center">
+                        <p class="font-semibold ${colors.text}">${event.start} - ${event.end}</p>
+                        ${!isGap ? noteButton : ''}
+                    </div>
+                    <h3 class="font-bold text-lg mt-1">${event.title}</h3>
+                    ${!isGap ? `
+                    <p class="text-sm text-gray-600 dark:text-gray-400">${event.code} | ${event.type}</p>
+                    <p class="mt-2 text-sm"><strong>Instructor:</strong> ${event.instructor}</p>
+                    <p class="text-sm"><strong>Location:</strong> ${event.location}</p>
+                    <p class="text-sm"><strong>Groups:</strong> ${event.groups}</p>
+                    ` : ''}
+                </div>`;
+        }
+        
+        function populateSchedule() {
+             Object.keys(scheduleData).forEach(day => {
+                const dayContainer = document.getElementById(`day-${day}`);
+                if (dayContainer) {
+                    const contentContainer = dayContainer.querySelector('.day-content');
+                    contentContainer.innerHTML = ''; // Clear previous content
+                    scheduleData[day].forEach(event => {
+                        contentContainer.innerHTML += createEventCard(day, event);
+                    });
+                }
+             });
+        }
+        
+        function reorderAndHighlightDays() {
+            const now = getCurrentTime();
+            const currentDayName = dayMap[now.getDay()];
+            const grid = document.getElementById('schedule-grid');
+            
+            const currentDayIndex = scheduledDays.indexOf(currentDayName);
+            let reorderedDays = scheduledDays;
+            if (currentDayIndex > -1) {
+                 reorderedDays = scheduledDays.slice(currentDayIndex).concat(scheduledDays.slice(0, currentDayIndex));
+            }
+            reorderedDays.forEach(day => {
+                const dayEl = document.getElementById(`day-${day}`);
+                if (dayEl) grid.appendChild(dayEl);
+            });
+
+            document.querySelectorAll('.day-column > summary').forEach(el => {
+                el.classList.remove('bg-blue-100', 'dark:bg-blue-900/50', 'ring-2', 'ring-blue-300', 'dark:ring-blue-500');
+            });
+            
+            if (scheduledDays.includes(currentDayName)) {
+                const todayEl = document.getElementById(`day-${currentDayName}`);
+                if (todayEl) {
+                    todayEl.querySelector('summary').classList.add('bg-blue-100', 'dark:bg-blue-900/50', 'ring-2', 'ring-blue-300', 'dark:ring-blue-500');
+                }
+            }
+        }
+
+        function updateCollapsibleDays() {
+            const now = getCurrentTime();
+            const currentDayName = dayMap[now.getDay()];
+            document.querySelectorAll('.day-column').forEach(detailsEl => {
+                detailsEl.open = (detailsEl.id === `day-${currentDayName}`);
+            });
+        }
+
+        function createLiveCard(title, event, now) {
+            const container = document.createElement('div');
+            container.className = 'bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg h-full flex flex-col';
+            
+            if (!event) {
+                container.innerHTML = `<h3 class="font-bold text-lg mb-2">${title}</h3><p class="text-gray-500 dark:text-gray-400 mt-1">No event.</p>`;
+                return container.outerHTML;
+            }
+            if (event === "DONE") {
+                 container.innerHTML = `<h3 class="font-bold text-lg mb-2">${title}</h3><p class="text-gray-500 dark:text-gray-400 mt-1">No more events for today.</p>`;
+                 return container.outerHTML;
+            }
+
+            const isGap = event.type === 'Gap';
+            const colors = {
+                yellow: { bg: 'bg-yellow-100 dark:bg-yellow-900/50', border: 'border-yellow-500 dark:border-yellow-600', text: 'text-yellow-800 dark:text-yellow-300', progress: 'bg-yellow-500' },
+                orange: { bg: 'bg-orange-100 dark:bg-orange-900/50', border: 'border-orange-500 dark:border-orange-600', text: 'text-orange-800 dark:text-orange-300', progress: 'bg-orange-500' },
+                blue: { bg: 'bg-blue-100 dark:bg-blue-900/50', border: 'border-blue-500 dark:border-blue-600', text: 'text-blue-800 dark:text-blue-300', progress: 'bg-blue-500' },
+                gray: { bg: 'bg-gray-200 dark:bg-gray-700', border: 'border-gray-400 dark:border-gray-500', text: 'text-gray-800 dark:text-gray-200', progress: 'bg-gray-500' },
+            }[event.color];
+
+            let content = `<h3 class="font-bold text-lg mb-2">${title}</h3>
+                <div class="event-card ${colors.bg} p-4 rounded-lg border-l-4 ${colors.border} flex-grow">
+                    <p class="font-semibold ${colors.text}">${event.start} - ${event.end}</p>
+                    <h4 class="font-bold text-xl mt-2">${event.title}</h4>
+                     ${!isGap ? `<p class="text-sm text-gray-600 dark:text-gray-400">${event.code} | ${event.type}</p><p class="mt-2 text-sm"><strong>Instructor:</strong> ${event.instructor}</p><p class="text-sm"><strong>Location:</strong> ${event.location}</p>` : ''}`;
+
+            if (title === 'Right Now') {
+                const todayStr = now.toISOString().split('T')[0];
+                const start = new Date(`${todayStr}T${event.start}:00`).getTime();
+                const end = new Date(`${todayStr}T${event.end}:00`).getTime();
+                const progress = Math.max(0, Math.min(100, (now.getTime() - start) / (end - start) * 100));
+                
+                content += `<div class="mt-4">
+                                <p class="text-sm font-semibold mb-1">In Progress</p>
+                                <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-4 relative border border-gray-300 dark:border-gray-500">
+                                    <div class="${colors.progress} h-full rounded-full" style="width: ${progress}%"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-gray-800 dark:text-gray-900">${Math.round(progress)}%</div>
+                                </div>
+                            </div>`;
+            } else if (title === 'Up Next') {
+                const todayStr = now.toISOString().split('T')[0];
+                const start = new Date(`${todayStr}T${event.start}:00`);
+                const countdown = start - now;
+                content += `<div class="mt-4">
+                                <p class="text-sm font-semibold mb-1">Starts In:</p>
+                                <p class="text-2xl font-bold ${colors.text}">${formatTime(countdown)}</p>
+                            </div>`;
+            }
+            content += '</div>';
+            container.innerHTML = content;
+            return container.outerHTML;
+        }
+
+        function updateLiveStatus() {
+            const now = getCurrentTime();
+            const currentDayName = dayMap[now.getDay()];
+            const currentTimeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+            const nowContainer = document.getElementById('live-status-now');
+            const nextContainer = document.getElementById('live-status-next');
+            const todaysSchedule = scheduleData[currentDayName];
+            if (!todaysSchedule) {
+                nowContainer.innerHTML = createLiveCard("Right Now", null);
+                nextContainer.innerHTML = createLiveCard("Up Next", null);
+                return;
+            }
+            let currentEvent = null;
+            let nextEvent = null;
+            for (let i = 0; i < todaysSchedule.length; i++) {
+                const event = todaysSchedule[i];
+                if (currentTimeStr >= event.start && currentTimeStr < event.end) {
+                    currentEvent = event;
+                    if (i + 1 < todaysSchedule.length) nextEvent = todaysSchedule[i+1];
+                    break;
+                }
+                 if (currentTimeStr < event.start) {
+                    if (!currentEvent) nextEvent = event;
+                    break;
+                }
+            }
+            nowContainer.innerHTML = createLiveCard("Right Now", currentEvent, now);
+            if (nextEvent) {
+                nextContainer.innerHTML = createLiveCard("Up Next", nextEvent, now);
+            } else if (currentEvent || currentTimeStr >= todaysSchedule[todaysSchedule.length - 1].end) {
+                nextContainer.innerHTML = createLiveCard("Up Next", "DONE");
+            } else {
+                 nextContainer.innerHTML = createLiveCard("Up Next", null);
+            }
+        }
+
+        function updateTimeIndicator() {
+            const now = getCurrentTime();
+            const currentDayName = dayMap[now.getDay()];
+            
+            const existing = document.getElementById('time-indicator');
+            if(existing) existing.remove();
+
+            const todaysSchedule = scheduleData[currentDayName];
+            if (!todaysSchedule) return;
+
+            const dayContainer = document.querySelector(`#day-${currentDayName} .day-content`);
+            if (!dayContainer) return;
+
+            const dayStartMinutes = timeToMinutes(todaysSchedule[0].start);
+            const dayEndMinutes = timeToMinutes(todaysSchedule[todaysSchedule.length - 1].end);
+            const totalDayDuration = dayEndMinutes - dayStartMinutes;
+            const nowMinutes = now.getHours() * 60 + now.getMinutes();
+            const elapsedMinutes = nowMinutes - dayStartMinutes;
+            let progressPercent = (elapsedMinutes / totalDayDuration) * 100;
+            progressPercent = Math.max(0, Math.min(100, progressPercent));
+
+            const indicator = document.createElement('div');
+            indicator.id = 'time-indicator';
+            indicator.className = 'absolute left-0 right-0 h-px bg-red-500 no-print';
+            indicator.style.top = `calc(100% * ${progressPercent / 100})`;
+            indicator.innerHTML = `<div class="absolute -left-1 -mt-1.5 h-3 w-3 bg-red-500 rounded-full border-2 border-white"></div>`;
+            dayContainer.appendChild(indicator);
+        }
+
+        function updateAcademicCalendar() {
+            const now = getCurrentTime();
+            const { semesterStart, midtermStart, finalStart, finalEnd } = academicCalendar;
+            const calendarDiv = document.getElementById('academic-calendar');
+
+            if (now > finalEnd) {
+                calendarDiv.innerHTML = `
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold text-[#654b99]">Happy Break!</h2>
+                        <p class="mt-2 text-gray-600 dark:text-gray-300">Hope you had a great term. Thanks for using this mini-project!</p>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Developed with ❤️ by Youssef Sameh</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // --- Week Number ---
+            if (now < semesterStart) {
+                document.getElementById('week-number').textContent = "Before Term";
+            } else {
+                const diffMs = now - semesterStart;
+                const diffDays = diffMs / (1000 * 60 * 60 * 24);
+                const weekNumber = Math.floor(diffDays / 7);
+                if (now >= midtermStart && now <= academicCalendar.midtermEnd) {
+                    document.getElementById('week-number').textContent = "Midterm (W7)";
+                } else if (now > academicCalendar.classEnd && now < academicCalendar.breakStart) {
+                    document.getElementById('week-number').textContent = "Finals";
+                } else {
+                    document.getElementById('week-number').textContent = `Week ${weekNumber}`;
+                }
+            }
+
+            // --- Progress Bars ---
+            const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
+            // Semester Progress Bar
+            const totalSemesterMs = finalEnd - semesterStart;
+            const elapsedSemesterMs = now - semesterStart;
+            const semesterProgress = clamp((elapsedSemesterMs / totalSemesterMs) * 100, 0, 100);
+            document.getElementById('semester-progress-bar').style.width = `${semesterProgress}%`;
+            document.getElementById('semester-progress-text').textContent = `${Math.round(semesterProgress)}%`;
+
+            // Dynamic Progress Bar
+            let dynamicLabel = '';
+            let dynamicProgress = 0;
+
+            if (now < midtermStart) {
+                dynamicLabel = 'Progress to Midterm';
+                const total = midtermStart - semesterStart;
+                const elapsed = now - semesterStart;
+                dynamicProgress = clamp((elapsed / total) * 100, 0, 100);
+            } else if (now < finalStart) {
+                dynamicLabel = 'Progress to Finals';
+                const total = finalStart - midtermStart;
+                const elapsed = now - midtermStart;
+                dynamicProgress = clamp((elapsed / total) * 100, 0, 100);
+            } else if (now <= finalEnd){
+                dynamicLabel = 'Finals Progress';
+                const total = finalEnd - finalStart;
+                const elapsed = now - finalStart;
+                dynamicProgress = clamp((elapsed / total) * 100, 0, 100);
+            }
+            
+            document.getElementById('dynamic-progress-label').textContent = dynamicLabel;
+            document.getElementById('dynamic-progress-bar').style.width = `${dynamicProgress}%`;
+            document.getElementById('dynamic-progress-text').textContent = `${Math.round(dynamicProgress)}%`;
+        }
+
+
+        // --- Notes & PDF/iCal Logic ---
+        function openGeneralNoteModal() {
+            currentNoteKey = 'GENERAL';
+            document.getElementById('notes-modal-title').innerText = 'Add a General Note';
+            document.getElementById('notes-textarea').value = '';
+            document.getElementById('notes-modal').classList.remove('hidden');
+        }
+
+        window.openNotesModal = (key, title) => {
+            currentNoteKey = key;
+            document.getElementById('notes-modal-title').innerText = `Notes for ${title}`;
+            document.getElementById('notes-textarea').value = localStorage.getItem(key) || '';
+            document.getElementById('notes-modal').classList.remove('hidden');
+        }
+
+        function closeNotesModal() {
+            document.getElementById('notes-modal').classList.add('hidden');
+            currentNoteKey = null;
+        }
+
+        function saveNote() {
+            if (!currentNoteKey) return;
+            const content = document.getElementById('notes-textarea').value.trim();
+
+            if (currentNoteKey === 'GENERAL') {
+                if (content) {
+                    const timestamp = new Date().toISOString();
+                    localStorage.setItem(`gnote-${timestamp}`, content);
+                }
+            } else { // Course-specific note
+                const button = document.querySelector(`button[data-note-key='${currentNoteKey}']`);
+                if (content) {
+                    localStorage.setItem(currentNoteKey, content);
+                    if (button) button.innerHTML = filledNoteIcon;
+                } else {
+                    localStorage.removeItem(currentNoteKey);
+                    if (button) button.innerHTML = emptyNoteIcon;
+                }
+            }
+            closeNotesModal();
+        }
+        
+        function clearAllNotes() {
+            if (confirm("Are you sure you want to delete ALL notes? This action cannot be undone.")) {
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.startsWith('notes-') || key.startsWith('gnote-')) {
+                        keysToRemove.push(key);
+                    }
+                }
+                keysToRemove.forEach(key => localStorage.removeItem(key));
+                populateSchedule();
+                alert("All notes have been cleared.");
+            }
+        }
+
+        function exportNotesToPDF() {
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // --- FONT FOR ARABIC SUPPORT ---
+                // This is a Base64 encoded Amiri font. It is required for jsPDF to render Arabic characters.
+                // It makes the script file larger, but it's necessary for the functionality.
+                const amiriFontBase64 = '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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-AAEAAACAAADAAAAAAAAgAAAAsAABQAAAh4ADwACAACAAAT2gADAEIAAgACAAAT1gADAAAAAQABAAMAAQAFAAUAEAAjADgAQwBaAGAAagBwAHYAgACHAJgAogCqALgAyADQAOIA7AECAQ4BGgEiAToBSgFWAV4BaAGYAagBrQHCAckB0QHYAekB+QIIAhMCGgIiAioCQgJOAlQCXQJ6AoYChwKaAqACsQLaAuIC9gMMAxIDFgMoAzMDSgNSA1YDZwNzA3oDhQOGA5ADpAOvA7cDyQPUA+IEAQQJBA0EEAQUBBoEIAQnBDUEOARCBFIEWgRoBHEEeASBBJIEowSuBMQEzQTUBOoE+gUGBQgFDQURBSYFLQUzBUUFSgVXBWYFbAV4BYAFjAWgBagFtgXcBesF/AYFBgoGDAYYBiAGRAZMBnAGhgacBq8GzgbgBu0HBgchBysHMAc5B0IHUAdlB3gHiweWB68HtQfCB9IH4gfuCAQIGAgqCDAIPghGCFIIWghiCHQIhwidCLAIxwjbCOoJIwkmCTwJTgljCXYJiwmeCasJvAnJCcoJ9QoHChAKFgooCiYKPApECkkKVgpcCmYKnArMCuwLQwtaC3ULwQveC/UMDAwnDEgMZQzFDNcNDQ0ODSgNMw1HDVcNdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-ABAAjgB7ANICkwAAAAACdwKhAAEABQAEAAcAAQAKAAEA/wAAAA==';
+                
+                // Add the font to jsPDF's virtual file system. The typo is corrected here.
+                doc.addFileToVFS('Amiri-Regular.ttf', amiriFontBase64);
+                doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
+
+                let courseNotes = [];
+                let generalNotes = [];
+
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.startsWith('notes-')) {
+                        courseNotes.push({ key, content: localStorage.getItem(key) });
+                    } else if (key.startsWith('gnote-')) {
+                        generalNotes.push({ key, content: localStorage.getItem(key) });
+                    }
+                }
+                
+                generalNotes.sort((a, b) => a.key.localeCompare(b.key));
+                
+                let y = 35;
+                const addNoteToPage = (title, content) => {
+                    if (y > 250) { 
+                        doc.addPage(); 
+                        y = 35;
+                    }
+                    
+                    const isArabic = /[\u0600-\u06FF]/.test(content);
+                    
+                    doc.setFont('Helvetica', 'bold');
+                    doc.text(title, 15, y);
+                    y += 7;
+
+                    doc.setFont(isArabic ? 'Amiri' : 'Helvetica', 'normal'); 
+                    const textLines = doc.splitTextToSize(content, 180);
+                    const textOptions = isArabic ? { align: 'right', lang: 'ar' } : {};
+                    doc.text(textLines, isArabic ? 195 : 15, y, textOptions);
+
+                    y += (textLines.length * 5) + 10;
+                    doc.line(15, y - 5, 195, y - 5);
+                };
+                
+                if (courseNotes.length > 0) {
+                    doc.setFontSize(14);
+                    doc.text("Course-Specific Notes", 15, y - 10);
+                    y += 5;
+                    courseNotes.forEach(note => {
+                        const parts = note.key.split('-');
+                        const day = parts[1];
+                        const time = parts[2];
+                        const title = parts[3].replace(/_/g, ' ');
+                        addNoteToPage(`${title} (${day} at ${time})`, note.content);
+                    });
+                }
+
+                if (generalNotes.length > 0) {
+                    if (courseNotes.length > 0) y += 10;
+                    
+                    if (y > 230) { 
+                        doc.addPage(); 
+                        y = 35;
+                    }
+                    doc.setFontSize(14);
+                    doc.text("General Notes", 15, y - 10);
+                    y += 5;
+                    generalNotes.forEach(note => {
+                        const timestamp = new Date(note.key.substring(6)).toLocaleString();
+                        addNoteToPage(`Note from ${timestamp}`, note.content);
+                    });
+                }
+
+                if (courseNotes.length === 0 && generalNotes.length === 0) {
+                    doc.text("No notes found to export.", 105, 40, { align: 'center'});
+                }
+
+                const pageCount = doc.internal.getNumberOfPages();
+                const now = new Date();
+                for(let i = 1; i <= pageCount; i++) {
+                    doc.setPage(i);
+                    doc.setFontSize(14);
+                    doc.setFont('Helvetica', 'bold');
+                    doc.text('Innovation University - Schedule Notes', 105, 15, { align: 'center' });
+                    doc.setFontSize(10);
+                    doc.setFont('Helvetica', 'normal');
+                    doc.text(`FCIT | Level 2 | Fall 2025/2026 | Exported: ${now.toLocaleString()}`, 105, 22, { align: 'center' });
+                    doc.setDrawColor(150);
+                    doc.line(15, 25, 195, 25);
+                    doc.setFontSize(9);
+                    doc.setTextColor(150);
+                    doc.text(`Page ${i} of ${pageCount}`, 195, 288, { align: 'right' });
+                    doc.text('Developed by: JoeLabs - Youssef Sameh', 15, 288);
+                    const igText = 'IG: @yecreate';
+                    const igUrl = 'https://www.instagram.com/yecreate';
+                    const textWidth = doc.getTextWidth(igText);
+                    const textX = 105 - (textWidth / 2);
+                    doc.setTextColor(79, 119, 213);
+                    doc.text(igText, 105, 288, { align: 'center'});
+                    doc.link(textX, 284.5, textWidth, 5, { url: igUrl });
+                }
+                
+                const timestamp = now.toISOString().slice(0, 19).replace(/:/g, '-').replace('T', '_');
+                doc.save(`schedule-notes_${timestamp}.pdf`);
+
+            } catch (error) {
+                console.error("Failed to generate PDF:", error);
+                alert("An error occurred while generating the PDF. Please check the console for details.");
+            }
+        }
+
+        function exportToiCal() {
+            const dayNameToIndex = { "Sunday": 0, "Monday": 1, "Tuesday": 2, "Wednesday": 3, "Thursday": 4, "Friday": 5, "Saturday": 6 };
+            let icsString = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//JoeLabs//Schedule Exporter//EN\n`;
+            const today = new Date();
+            Object.keys(scheduleData).forEach(day => {
+                if (scheduleData[day].length > 0) {
+                    const targetDayIndex = dayNameToIndex[day];
+                    scheduleData[day].forEach(event => {
+                        if (event.type === 'Gap') return;
+                        const eventDate = new Date(today);
+                        eventDate.setDate(today.getDate() + (targetDayIndex - today.getDay() + 7) % 7);
+                        const [startH, startM] = event.start.split(':');
+                        const [endH, endM] = event.end.split(':');
+                        const startDate = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), startH, startM);
+                        const endDate = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), endH, endM);
+                        const toUTC = (date) => date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+                        icsString += 'BEGIN:VEVENT\n';
+                        icsString += `DTSTAMP:${toUTC(new Date())}\n`;
+                        icsString += `DTSTART:${toUTC(startDate)}\n`;
+                        icsString += `DTEND:${toUTC(endDate)}\n`;
+                        icsString += `RRULE:FREQ=WEEKLY\n`;
+                        icsString += `SUMMARY:${event.title} (${event.type})\n`;
+                        icsString += `DESCRIPTION:Course Code: ${event.code}\\nInstructor: ${event.instructor}\\nGroups: ${event.groups}\n`;
+                        icsString += `LOCATION:${event.location}\n`;
+                        icsString += 'END:VEVENT\n';
+                    });
+                }
+            });
+            icsString += 'END:VCALENDAR';
+            const blob = new Blob([icsString], { type: 'text/calendar' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'schedule.ics';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // --- Theme ---
+        const themeToggle = document.getElementById('theme-toggle');
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.getElementById('theme-icon-light').classList.add('hidden');
+                document.getElementById('theme-icon-dark').classList.remove('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('theme-icon-light').classList.remove('hidden');
+                document.getElementById('theme-icon-dark').classList.add('hidden');
+            }
+            localStorage.setItem('theme', theme);
+        }
+        
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                applyTheme(savedTheme);
+            } else {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                applyTheme(prefersDark ? 'dark' : 'light');
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
+
+        // --- Notes Manager ---
+        function openNotesManager() {
+            populateNotesManager();
+            document.getElementById('notes-manager-modal').classList.remove('hidden');
+        }
+
+        function closeNotesManager() {
+            document.getElementById('notes-manager-modal').classList.add('hidden');
+        }
+
+        function populateNotesManager() {
+            const courseList = document.getElementById('course-notes-list');
+            const generalList = document.getElementById('general-notes-list');
+            courseList.innerHTML = '';
+            generalList.innerHTML = '';
+
+            let courseNotes = [];
+            let generalNotes = [];
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('notes-')) {
+                    courseNotes.push({ key, content: localStorage.getItem(key) });
+                } else if (key.startsWith('gnote-')) {
+                    generalNotes.push({ key, content: localStorage.getItem(key) });
+                }
+            }
+
+            if (courseNotes.length > 0) {
+                courseNotes.forEach(note => {
+                    const parts = note.key.split('-');
+                    const day = parts[1];
+                    const time = parts[2];
+                    const title = parts[3].replace(/_/g, ' ');
+                    const item = document.createElement('div');
+                    item.className = 'p-3 border rounded-lg bg-gray-50 dark:bg-gray-700/50 flex justify-between items-start';
+                    item.innerHTML = `
+                        <div>
+                            <p class="font-bold">${title}</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">${day} at ${time}</p>
+                            <p class="mt-1 whitespace-pre-wrap">${note.content}</p>
+                        </div>
+                        <button data-key="${note.key}" class="delete-note-btn p-1 text-red-500 hover:text-red-700">${deleteIcon}</button>
+                    `;
+                    courseList.appendChild(item);
+                });
+            } else {
+                courseList.innerHTML = '<p class="text-sm text-gray-500">No course-specific notes saved yet.</p>';
+            }
+
+            if (generalNotes.length > 0) {
+                generalNotes.sort((a, b) => b.key.localeCompare(a.key)).forEach(note => { // Sort descending for newest first
+                    const timestamp = new Date(note.key.substring(6)).toLocaleString();
+                    const item = document.createElement('div');
+                    item.className = 'p-3 border rounded-lg bg-gray-50 dark:bg-gray-700/50 flex justify-between items-start';
+                    item.innerHTML = `
+                        <div>
+                            <p class="font-bold text-sm text-gray-500 dark:text-gray-400">${timestamp}</p>
+                            <p class="mt-1 whitespace-pre-wrap">${note.content}</p>
+                        </div>
+                        <button data-key="${note.key}" class="delete-note-btn p-1 text-red-500 hover:text-red-700">${deleteIcon}</button>
+                    `;
+                    generalList.appendChild(item);
+                });
+            } else {
+                generalList.innerHTML = '<p class="text-sm text-gray-500">No general notes saved yet.</p>';
+            }
+        }
+
+        // --- Event Listeners & Initialization ---
+        function setupTestControls() {
+            const dateInput = document.getElementById('test-date');
+            const timeInput = document.getElementById('test-time');
+            const resetButton = document.getElementById('reset-time');
+            function handleTimeChange() {
+                if (dateInput.value && timeInput.value) { 
+                    mockDate = new Date(`${dateInput.value}T${timeInput.value}`); 
+                } else { 
+                    mockDate = null; 
+                }
+                reorderAndHighlightDays();
+                updateCollapsibleDays();
+                runLiveUpdates(); // Run only the live parts
+            }
+            dateInput.addEventListener('change', handleTimeChange);
+            timeInput.addEventListener('change', handleTimeChange);
+            resetButton.addEventListener('click', () => {
+                mockDate = null;
+                dateInput.value = '';
+                timeInput.value = '';
+                reorderAndHighlightDays();
+                updateCollapsibleDays();
+                runLiveUpdates();
+            });
+        }
+        
+        function runLiveUpdates() {
+            updateClock();
+            updateLiveStatus();
+            updateTimeIndicator();
+            updateAcademicCalendar();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTheme();
+            populateSchedule();
+            setupTestControls();
+            
+            reorderAndHighlightDays();
+            updateCollapsibleDays();
+
+            runLiveUpdates();
+            setInterval(runLiveUpdates, 1000);
+
+            // Modal Listeners
+            document.getElementById('notes-modal-close').addEventListener('click', closeNotesModal);
+            document.getElementById('notes-modal-save').addEventListener('click', saveNote);
+            document.getElementById('notes-manager-btn').addEventListener('click', openNotesManager);
+            document.getElementById('notes-manager-close').addEventListener('click', closeNotesManager);
+            
+            // Note Manager Logic
+            document.getElementById('notes-manager-modal').addEventListener('click', (e) => {
+                const deleteBtn = e.target.closest('.delete-note-btn');
+                if (deleteBtn) {
+                    const key = deleteBtn.dataset.key;
+                    if (key && confirm('Are you sure you want to delete this note?')) {
+                        localStorage.removeItem(key);
+                        populateNotesManager();
+                        if (key.startsWith('notes-')) {
+                            populateSchedule(); // Refresh main schedule to update icons
+                        }
+                    }
+                }
+            });
+
+            // Dashboard Button Listeners
+            document.getElementById('quick-note-btn').addEventListener('click', openGeneralNoteModal);
+            document.getElementById('export-pdf-btn').addEventListener('click', exportNotesToPDF);
+            document.getElementById('clear-notes-btn').addEventListener('click', clearAllNotes);
+            document.getElementById('ical-export-btn').addEventListener('click', exportToiCal);
+        });
+    </script>
+</body>
+</html>
