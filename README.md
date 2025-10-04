@@ -44,22 +44,12 @@ This project is built with a focus on simplicity and performance, using only cli
 
 ## ⚙️ Getting Started
 
-There are two ways to use this tool:
 
-**1. Local Usage (Simple)**
+**Local Usage (Simple)**
 
 Simply download the `index.html` file and open it in any modern web browser. All features will work out of the box.
 
-**2. Deployment (Recommended for Sharing)**
 
-To share a single, up-to-date link with friends, you can host this project for free on a static web host like GitHub Pages.
-
-1.  Create a new public repository on GitHub.
-2.  Rename the file `Group_1_Schedule_v1.html` to `index.html`.
-3.  Upload `index.html` to your repository.
-4.  In your repository's **Settings**, navigate to the **Pages** tab.
-5.  Select your `main` branch as the source and click **Save**.
-6.  Your live site will be available at the URL provided by GitHub.
 
 ## 👤 Author
 
