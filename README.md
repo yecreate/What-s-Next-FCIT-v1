@@ -1,6 +1,6 @@
 # FCIT Live Schedule
 
-An interactive academic dashboard for students of Group 1 at the Faculty of Computers and Information Technology (FCIT), Innovation University, for the Fall 2025/2026 semester. This project transforms a static timetable into a dynamic, feature-rich tool to help students stay organized and on top of their schedule.
+An interactive academic dashboard for students of Group 1 at the Faculty of Computers and Information Technology (FCIT), Innovation University, for Level 2 - Fall 2025/2026 semester. This project transforms a static timetable into a dynamic, feature-rich tool to help students stay organized and on top of their schedule.
 
 
 ## ✨ Key Features
